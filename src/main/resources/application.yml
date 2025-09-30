@@ -1,0 +1,121 @@
+server:
+  port: 8080
+  address: 0.0.0.0
+  tomcat:
+    max-threads: 200
+    min-spare-threads: 10
+    max-connections: 10000
+    accept-count: 100
+    connection-timeout: 20000
+    remote-ip-header: x-forwarded-for
+    protocol-header: x-forwarded-proto
+    port-header: x-forwarded-port
+    basedir: logs/tomcat
+    max-http-form-post-size: 100MB
+    max-swallow-size: 100MB
+    max-keep-alive-requests: 100
+    keep-alive-timeout: 30000
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/goldmall?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: GoldMall
+    password: 4zyTzLAz6XY4XNBk
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+  server:
+    tomcat:
+      max-http-form-post-size: 100MB
+      max-swallow-size: 100MB
+    forward-headers-strategy: framework
+    use-forward-headers: true
+    compression:
+      enabled: true
+      mime-types: application/json,application/xml,text/html,text/xml,text/plain
+      min-response-size: 2048
+    error:
+      include-message: always
+      include-binding-errors: always
+      include-stacktrace: always
+      include-exception: true
+  application:
+    name: mall
+  resources:
+    static-locations: file:${file.upload.path}
+
+logging:
+  level:
+    root: INFO
+    com.mall: DEBUG
+    org.springframework.web: DEBUG
+    org.springframework.security: DEBUG
+  file:
+    name: /www/wwwroot/mall-0.0.1-SNAPSHOT.log
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.mall.entity
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      id-type: auto
+      logic-delete-field: deleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+
+knife4j:
+  enable: true
+  setting:
+    language: zh-CN
+    enable-swagger-models: true
+    enable-document-manage: true
+    swagger-model-name: 实体类列表
+    enable-version: false
+    enable-reload-cache-parameter: false
+    enable-after-script: true
+    enable-filter-multipart-api-method-type: POST
+    enable-filter-multipart-apis: false
+    enable-request-cache: true
+    enable-host: true
+    enable-host-text: https://www.iejhsgold.cn
+    enable-home-custom: false
+    home-custom-path: classpath:markdown/home.md
+    enable-search: true
+    enable-footer: false
+    enable-footer-custom: true
+    footer-custom-content:
+    enable-dynamic-parameter: false
+    enable-debug: true
+    enable-open-api: false
+    enable-group: true
+  cors: true
+  production: false
+  basic:
+    enable: false
+    username: test
+    password: 12313
+
+minio:
+  endpoint: http://www.iejhsgold.cn:9000
+  accessKey: minioadmin
+  secretKey: minioadmin
+  bucketName: mall
+
+# 文件上传配置
+file:
+  upload:
+    path: /www/wwwroot/files
+    access-path: /files/**
+  
+   

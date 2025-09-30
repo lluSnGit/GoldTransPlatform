@@ -1,0 +1,10 @@
+-- 创建账户表
+CREATE TABLE account (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT COMMENT '自增ID',
+    account_id VARCHAR(50) NOT NULL COMMENT '账户ID',
+    user_id VARCHAR(32) NOT NULL COMMENT '用户随机ID',
+    create_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    update_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    UNIQUE KEY uk_account_id (account_id),
+    UNIQUE KEY uk_user_id (user_id)
+) COMMENT '账户表'; 

@@ -1,0 +1,22 @@
+CREATE TABLE gold_recycle_order (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT COMMENT '主键ID',
+    order_id VARCHAR(32) NOT NULL COMMENT '订单编号',
+    account VARCHAR(32) NOT NULL COMMENT '账号',
+    gold_type VARCHAR(50) NOT NULL COMMENT '黄金类型',
+    estimated_weight DECIMAL(10,2) NOT NULL COMMENT '预估重量(克)',
+    purity VARCHAR(20) NOT NULL COMMENT '成色',
+    gold_condition VARCHAR(50) NOT NULL COMMENT '品相',
+    description TEXT COMMENT '描述',
+    receiver_name VARCHAR(50) NOT NULL COMMENT '收货人姓名',
+    receiver_phone VARCHAR(20) NOT NULL COMMENT '收货人电话',
+    receiver_address VARCHAR(200) NOT NULL COMMENT '收货地址',
+    images VARCHAR(1000) COMMENT '图片URL',
+    status TINYINT NOT NULL DEFAULT 1 COMMENT '订单状态：1-待检测 2-检测中 3-待确认 4-已完成 5-已取消',
+    estimated_price DECIMAL(10,2) COMMENT '预估价格',
+    final_price DECIMAL(10,2) COMMENT '最终价格',
+    inspection_result TEXT COMMENT '检测结果',
+    create_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    update_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    UNIQUE KEY uk_order_id (order_id),
+    KEY idx_status (status)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='黄金回收订单表'; 
